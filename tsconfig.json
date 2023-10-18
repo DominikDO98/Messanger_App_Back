@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "CommonJS",
+      "outDir": "build",
+      "sourceMap": true,
+      "noImplicitAny": false,
+      "preserveConstEnums": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "moduleResolution": "node",
+      "lib": ["es6"],
+      "downlevelIteration": true,
+      "esModuleInterop": true
+    }
+  }
