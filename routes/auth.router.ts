@@ -5,10 +5,11 @@ import  { TUser, TUserCreation }  from '../types/user.types';
 
 export const authRouter = Router();
 
-const users: TUserCreation[] = [
+const users: TUser[] = [
     {
+        id: '1',
         username: 'Name',
-        password: 'Pass'
+        password: 'Pass',
     }
 ]
 
@@ -36,7 +37,8 @@ authRouter
         if (req.body.username && req.body.password) {
         try {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
-            const user: TUserCreation = {
+            const user: TUser = {
+                id: uuid(),
                 username: req.body.username,
                 password: hashedPassword,
             }
