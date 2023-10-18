@@ -1,4 +1,4 @@
-import Router, { IRouter } from 'express';
+import Router from 'express';
 
 export const homeRouter = Router();
 
