@@ -1,10 +1,9 @@
 import express from 'express';
+import { homeRouter } from './routes/home.router';
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
+app.use('/', homeRouter);
 
 
 app.listen(3000, 'localhost', () => {
