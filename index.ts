@@ -1,5 +1,4 @@
 import express from 'express';
-import WebSocket from 'ws';
 
 const app = express();
 
@@ -9,6 +8,6 @@ app.get('/', (req, res) => {
 
 
 app.listen(3000, 'localhost', () => {
-    console.log("Server is listening on port 3000");
+    console.log("Server is listening on port: 3000");
     
 });
