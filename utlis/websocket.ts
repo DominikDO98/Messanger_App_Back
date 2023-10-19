@@ -2,7 +2,7 @@ import WebSocket from 'ws';
 import {createServer} from 'http';
 import { app } from './app';
 
-const socket = createServer(app)
+export const socket = createServer(app)
 const wsServer = new WebSocket.Server({ server: socket})
 
 wsServer.on('connection', (ws) => {
