@@ -3,7 +3,7 @@ import Router, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import {v4 as uuid} from "uuid";
 import { TUser }  from '../types/user.types';
-import { generateToken } from '../utlis/authentication';
+import { autorizeToken, generateToken } from '../utlis/authentication';
 
 export const authRouter = Router();
 
@@ -16,8 +16,9 @@ const users: TUser[] = [
 ]
 
 authRouter
-    .get('/users', (req, res) => {
-        res.send(users)//Testowe, usunąc potem
+    .get('/users', autorizeToken, (req, res) => {
+        const user: TUser = users.find(user => user.username === req.body.username)
+        res.send(user)//Testowe, usunąc potem
     })
 
     .post('/login', async (req: Request, res: Response) => {
@@ -55,14 +56,14 @@ authRouter
             users.push(user);
 
             const accessToken = generateToken({
-                id: user.id, 
+                id: user.id,
                 username: user.username,
             });
             
             
             res.status(201).json({accessToken: accessToken});
-        } catch (err) {
-            res.status(500).send(err)
+        } catch {
+            res.status(500).send('nie działa')
         }} else {
             res.status(400).send('Invalid input')
         }
