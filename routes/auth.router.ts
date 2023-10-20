@@ -1,7 +1,7 @@
 import Router, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import {v4 as uuid} from "uuid";
-import  { TUser, TUserCreation }  from '../types/user.types';
+import  { TUser }  from '../types/user.types';
 
 export const authRouter = Router();
 
