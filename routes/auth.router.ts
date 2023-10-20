@@ -2,7 +2,7 @@ require('dotenv').config();
 import Router, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import {v4 as uuid} from "uuid";
-import  { TUser }  from '../types/user.types';
+import { TUser }  from '../types/user.types';
 import { generateToken } from '../utlis/authentication';
 
 export const authRouter = Router();
@@ -53,10 +53,10 @@ authRouter
                 password: hashedPassword,
             }
             users.push(user);
-            
+
             const accessToken = generateToken({
                 id: user.id, 
-                username: user.username
+                username: user.username,
             });
             
             
