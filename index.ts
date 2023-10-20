@@ -2,8 +2,8 @@ import express from 'express';
 import { homeRouter } from './routes/home.router';
 import { authRouter } from './routes/auth.router';
 
-import { app } from './utlis/app'
-import { server } from './utlis/websocket'
+import { app } from './utlis/app';
+import { server } from './utlis/websocket.server';
 
 app.use(express.json());
 
