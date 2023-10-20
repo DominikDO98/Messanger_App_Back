@@ -4,5 +4,6 @@ export type TUser = {
     password: string;
 }
 
+export type TUserJWT = Omit<TUser, 'password'>
 export type TUserCreation = Omit<TUser, "id">
 

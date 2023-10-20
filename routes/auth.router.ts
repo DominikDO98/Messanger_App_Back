@@ -1,7 +1,9 @@
+require('dotenv').config();
 import Router, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import {v4 as uuid} from "uuid";
 import  { TUser }  from '../types/user.types';
+import { generateToken } from '../utlis/authentication';
 
 export const authRouter = Router();
 
@@ -19,17 +21,25 @@ authRouter
     })
 
     .post('/login', async (req: Request, res: Response) => {
-       const user = users.find(user => user.username === req.body.username)
+       const user: TUser = users.find(user => user.username === req.body.username)
        if (!user) {
         return res.status(400).send('User not found')
        }
        try {
-       if (await bcrypt.compare(req.body.password, user.password)) {
-        res.send("Logged In")
-       } else {
-        res.status(401).send('Invalid input')
+       
+        if (await bcrypt.compare(req.body.password, user.password)) {
+        
+        const accessToken = generateToken({
+            id: user.id, 
+            username: user.username
+        });
+        
+        res.json({accessToken: accessToken});
+       
+    } else {
+        res.status(401).send('Invalid login or password')
        }} catch (err) {
-         res.status(500).send(err)
+         res.status(500).send('Coś nie tak')
        }
     })
 
@@ -43,7 +53,14 @@ authRouter
                 password: hashedPassword,
             }
             users.push(user);
-            res.status(201).send('user created')
+            
+            const accessToken = generateToken({
+                id: user.id, 
+                username: user.username
+            });
+            
+            
+            res.status(201).json({accessToken: accessToken});
         } catch (err) {
             res.status(500).send(err)
         }} else {
