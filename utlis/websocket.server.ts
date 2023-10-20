@@ -1,11 +1,9 @@
 import WebSocket from 'ws';
 import {createServer} from 'http';
-import { app } from './app';
-import path from 'path'
 
-const socket = app.get('/ws', (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'));
-})
+import { socket } from '../routes/socket.router';
+
+
 
 export const server = createServer(socket)
 const wss = new WebSocket.Server({ server: server})
