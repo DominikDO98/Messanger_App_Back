@@ -3,7 +3,7 @@ import Router, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import {v4 as uuid} from "uuid";
 import { TUser }  from '../types/user.types';
-import { autorizeToken, generateToken } from '../utlis/authentication';
+import { autorizeToken, generateToken } from '../utils/authentication';
 
 export const authRouter = Router();
 
