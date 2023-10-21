@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import {v4 as uuid} from "uuid";
 import { TUser }  from '../types/user.types';
 import { autorizeToken, generateToken } from '../utils/authentication';
+import { AuthRepository } from '../repository/auth.repository';
 
 export const authRouter = Router();
 
@@ -54,16 +55,21 @@ authRouter
                 password: hashedPassword,
             }
             users.push(user);
-
+            
+            
+            const id = await AuthRepository.createUser(user);
             const accessToken = generateToken({
                 id: user.id,
                 username: user.username,
             });
             
             
-            res.status(201).json({accessToken: accessToken});
-        } catch {
-            res.status(500).send('nie działa')
+            
+            res.status(201).json({accessToken: accessToken, id: id});
+        } catch (err) {
+            if (err.code =  "ER_DUP_ENTRY") {
+                res.status(500).send('Taki username już istnieje')
+            } else res.status(400).send('Błąd')
         }} else {
             res.status(400).send('Invalid input')
         }
