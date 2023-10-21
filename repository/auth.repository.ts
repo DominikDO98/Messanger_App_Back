@@ -1,4 +1,3 @@
-import { RowDataPacket } from "mysql2"
 import { TUser, TUserJWT } from "../types/user.types"
 import { pool } from "../utils/db"
 
