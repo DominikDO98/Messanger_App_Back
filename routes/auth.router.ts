@@ -64,8 +64,8 @@ authRouter
             res.status(201).json({accessToken: accessToken, id: user.id});
         } catch (err) {
             if (err.code === "ER_DUP_ENTRY") {
-                res.status(500).send('Taki username już istnieje')
-            } else res.status(400).send(err)
+                res.status(400).send('Taki username już istnieje')
+            } else res.status(500).send('Error')
         }} else {
             res.status(400).send('Invalid input')
         }

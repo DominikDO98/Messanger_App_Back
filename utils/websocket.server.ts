@@ -1,7 +1,9 @@
 import WebSocket from 'ws';
 import {createServer} from 'http';
+import { v4 as uuid } from "uuid";
 
 import { socket } from '../routes/socket.router';
+import { TMessage, TMessageCreation } from '../types/messege.type';
 
 
 
@@ -10,13 +12,17 @@ const wss = new WebSocket.Server({ server: server})
 
 wss.on('connection', (ws) => {
     console.log('A new client connected');
-    ws.send('Welcome New Client');
 
-    ws.on('message', (message) => {
-        console.log('recived msg: ', String(message));
+    ws.on('message', message_text => {
+        const newMessage: Partial<TMessage> = {
+            message_text: String(message_text),
+            created_at: new Date().toLocaleString(),
+            message_id: uuid(),
+        }
+        console.log('recived msg: ', newMessage.message_text);
 
         wss.clients.forEach((client) => {
-            client.send(message);
+            client.send(JSON.stringify(newMessage));
         });
         
     })

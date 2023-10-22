@@ -7,7 +7,10 @@
 </head>
 <body>
     Client
-    <button onclick="send()">Send</button>
+    <form action="" method="post">
+        <input type="text" id="message" >
+        <button type="submit" onclick="send()">Send</button>
+    </form>
 </body>
 <script>
     const socket = new WebSocket('ws://localhost:3000/ws');
@@ -19,12 +22,15 @@
     });
 
     socket.addEventListener('message', async (event) => {
-        const text = await new Response(event.data).text()
-        console.log('Message from server ', text );
+        const data = await new Response(event.data).text()
+            const message = JSON.parse(data)
+            const text = message.message_text
+            console.log('Message from server ', text );        
     });
 
     const send = () => {
-        socket.send('Hello from client')
+        let message = document.querySelector('input').value;
+        socket.send(message)
     }
 </script>
 </html>
