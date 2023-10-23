@@ -1,4 +1,3 @@
-import { RowDataPacket } from "mysql2";
 import { TMessage } from "../types/messege.type";
 import { pool } from "../utils/db";
 
@@ -15,7 +14,7 @@ export class MessegesRepository {
     }
 
     static async loadMessages (room_id: string): Promise<Partial<TMessage[]> | null> {
-        const [ results ] = await pool.execute('SELECT `message_text`, `created_at`, `messege_id`, `from_user_id` FROM `messeges` WHERE `to_room_id` = :room_id', {
+        const [ results ] = await pool.execute('SELECT `message_text`, `created_at`, `messege_id`, `from_user_id` FROM `messeges` WHERE `to_room_id` = :room_id LIMIT 50 ORDER BY `created_at` DESC', {
             room_id: room_id,
         });
 
@@ -26,5 +25,6 @@ export class MessegesRepository {
 
     
 }
-MessegesRepository.getAllTheRooms('920a23f8-0fb8-4e15-8a01-3e010f01e9cc')
 
+
+MessegesRepository.loadMessages('1');
