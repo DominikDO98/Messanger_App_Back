@@ -14,7 +14,7 @@ export class MessegesRepository {
     }
 
     static async loadMessages (room_id: string): Promise<Partial<TMessage[]> | null> {
-        const [ results ] = await pool.execute('SELECT `message_text`, `created_at`, `messege_id`, `from_user_id` FROM `messeges` WHERE `to_room_id` = :room_id ORDER BY `created_at` ASC LIMIT 50', {
+        const [ results ] = await pool.execute('SELECT `message_text`, `created_at`, `message_id`, `from_user_id` FROM `messages` WHERE `to_room_id` = :room_id ORDER BY `created_at` ASC LIMIT 50', {
             room_id: room_id,
         });
 

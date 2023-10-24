@@ -4,6 +4,11 @@ import { pool } from "../utils/db"
 
 export class AuthRepository {
     constructor () {}
+    static async getUser (user_id: string) {
+        const [ results ] = await pool.execute('SELECT `username` FROM `users` WHERE `user_id` = :user_id', {
+            user_id: user_id
+        })
+    }
 
     static async registerUser (user: TUser): Promise<TUserJWT | null> {
         await pool.execute('INSERT INTO `users` (`user_id`, `username`, `password`) VALUES (:id, :username, :password)', {
