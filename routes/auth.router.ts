@@ -16,9 +16,7 @@ authRouter
     })
 
     .post('/login', async (req: Request, res: Response) => {
-       const user = await AuthRepository.login(req.body)
-
-       
+       const user = await AuthRepository.login(req.body)      
        if (!user) {
         return res.status(400).send('Invalid login or password')
        }
@@ -31,12 +29,16 @@ authRouter
             username: user.username
         });
         
-        res.json({accessToken: accessToken});
+        res.json(accessToken);
        
     } else {
+
         res.status(401).send('Invalid login or password')
+
        }} catch (err) {
+
          res.status(500).send('Coś nie tak')
+
        }
     })
 
@@ -61,11 +63,15 @@ authRouter
             
             
             
-            res.status(201).json({accessToken: accessToken, id: user.id});
+            res.status(201).json(accessToken);
+
+
         } catch (err) {
+
             if (err.code === "ER_DUP_ENTRY") {
                 res.status(400).send('Taki username już istnieje')
             } else res.status(500).send('Error')
+
         }} else {
             res.status(400).send('Invalid input')
         }
