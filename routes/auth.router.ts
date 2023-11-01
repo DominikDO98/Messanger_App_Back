@@ -10,10 +10,6 @@ export const authRouter = Router();
 
 
 authRouter
-    .get('/users', autorizeToken, (req, res) => {
-        // const user: TUser = users.find(user => user.username === req.body.username)
-        // res.send(user)//Testowe, usunąc potem
-    })
 
     .post('/login', async (req: Request, res: Response) => {
        const user = await AuthRepository.login(req.body)      
@@ -29,7 +25,8 @@ authRouter
             username: user.username
         });
         
-        res.json(accessToken);
+        res
+            .json(accessToken)
        
     } else {
 

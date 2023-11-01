@@ -1,10 +1,9 @@
-import WebSocket from 'ws';
-import {createServer} from 'http';
+import { createServer } from 'http';
 import { v4 as uuid } from "uuid";
-
-import { socket } from '../routes/socket.router';
-import { TMessage, TMessageCreation } from '../types/messege.type';
+import WebSocket from 'ws';
 import { MessegesRepository } from '../repository/messages.repository';
+import { socket } from '../routes/socket.router';
+import { TMessage } from '../types/messege.type';
 
 
 
@@ -12,6 +11,7 @@ export const server = createServer(socket)
 const wss = new WebSocket.Server({ server: server})
 
 wss.on('connection', async (ws: WebSocket) => {
+    
     const messageHistory = await MessegesRepository.loadMessages('1');
     ws.send(JSON.stringify(messageHistory))
 

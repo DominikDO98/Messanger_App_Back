@@ -13,7 +13,7 @@
     </form>
 </body>
 <script>
-    const socket = new WebSocket('ws://localhost:3000/ws');
+    const socket = new WebSocket(`ws://localhost:3000/ws/${id}`);
 
 
     socket.addEventListener('open', (event) => {

@@ -4,14 +4,7 @@ import { pool } from "../utils/db";
 export class MessegesRepository {
     constructor () {}
 
-    static async getAllTheRooms (user_id: string): Promise<string | null> {
-        const [ results ] = await pool.execute('SELECT `room_id` FROM `room_users` WHERE `user_id` = :user_id', {
-            user_id: user_id,
-        })
-
-        console.log(results)
-        return results[0]
-    }
+    
 
     static async loadMessages (room_id: string): Promise<Partial<TMessage[]> | null> {
         const [ results ] = await pool.execute('SELECT `message_text`, `created_at`, `message_id`, `from_user_id` FROM `messages` WHERE `to_room_id` = :room_id ORDER BY `created_at` ASC LIMIT 50', {
