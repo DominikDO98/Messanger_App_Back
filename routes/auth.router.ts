@@ -19,7 +19,7 @@ authRouter
        try {
        
         if (await bcrypt.compare(req.body.password, user.password)) {
-        
+
         const accessToken = generateToken({
             id: user.id, 
             username: user.username
@@ -27,7 +27,6 @@ authRouter
         
         res
             .json(accessToken)
-       
     } else {
 
         res.status(401).send('Invalid login or password')
