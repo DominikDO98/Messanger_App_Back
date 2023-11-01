@@ -16,7 +16,10 @@ export const autorizeToken = (req: Request, res: Response, next: NextFunction) =
      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err: Error, user: TUserJWT) => {
         console.log(err);
         if (err) return res.sendStatus(403)
-        req.body = user
+        req.body = {
+            ...req.body,
+            user: user,
+        };
         next()
     });
     next()
