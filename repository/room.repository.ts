@@ -5,12 +5,12 @@ export class roomRepo {
     constructor() {}
 
 
-    static async getAllTheRooms (user_id: string): Promise<string | null> {
+    static async getAllTheRooms (user_id: string): Promise<TRoom[] | null> {
         const [ results ] = await pool.execute('SELECT `room_id` FROM `room_users` WHERE `user_id` = :user_id', {
             user_id: user_id,
         })
 
-        console.log(results)
+    
         return results[0]
     };
 

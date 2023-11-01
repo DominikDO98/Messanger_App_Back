@@ -11,7 +11,7 @@ export class MessegesRepository {
             room_id: room_id,
         });
 
-        console.log(results);
+        
         return results[0]
         
     }
@@ -26,7 +26,7 @@ export class MessegesRepository {
             const [results] = await pool.execute('SELECT `message_id`, `to_room_id` FROM `messages` WHERE `message_id` = :id', {
                 id: message.message_id,
             })
-            console.log(results[0]);
+            
             
             return results[0]
         

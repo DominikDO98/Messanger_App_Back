@@ -8,16 +8,18 @@ export class AuthRepository {
         const [ results ] = await pool.execute('SELECT `username` FROM `users` WHERE `user_id` = :user_id', {
             user_id: user_id
         })
+
+        return results[0]
     }
 
     static async registerUser (user: TUser): Promise<TUserJWT | null> {
         await pool.execute('INSERT INTO `users` (`user_id`, `username`, `password`) VALUES (:id, :username, :password)', {
-            id: user.id,
+            id: user.user_id,
             username: user.username,
             password: user.password,
         })
         const [results] = await pool.execute('SELECT `user_id`, `username` FROM `users` WHERE `user_id` = :id', {
-            id: user.id,
+            id: user.user_id,
         })
 
         return results[0]

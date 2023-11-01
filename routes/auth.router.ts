@@ -12,8 +12,10 @@ export const authRouter = Router();
 authRouter
 
     .post('/login', async (req: Request, res: Response) => {
-       const user = await AuthRepository.login(req.body)      
-       if (!user) {
+       const user: TUser = await AuthRepository.login(req.body) 
+       
+            
+       if (!req.body.username || !req.body.password) {
         return res.status(400).send('Invalid login or password')
        }
        try {
@@ -21,12 +23,11 @@ authRouter
         if (await bcrypt.compare(req.body.password, user.password)) {
 
         const accessToken = generateToken({
-            id: user.id, 
+            user_id: user.user_id, 
             username: user.username
         });
         
-        res
-            .json(accessToken)
+        res.json(accessToken)
     } else {
 
         res.status(401).send('Invalid login or password')
@@ -41,19 +42,22 @@ authRouter
     .post('/register', async (req: Request, res: Response) => {
         if (req.body.username && req.body.password) {
         try {
+            console.log(req.body);
             
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
             const user: TUser = {
-                id: uuid(),
+                user_id: uuid(),
                 username: req.body.username,
                 password: hashedPassword,
             }            
+            console.log(user);
             
-            const newUser  = await AuthRepository.registerUser(user) as any
+            const newUser  = await AuthRepository.registerUser(user)
             console.log(newUser);
             
+            
             const accessToken = generateToken({
-                id: newUser.id,
+                user_id: newUser.user_id,
                 username: newUser.username,
             });
             
@@ -66,7 +70,7 @@ authRouter
 
             if (err.code === "ER_DUP_ENTRY") {
                 res.status(400).send('Taki username już istnieje')
-            } else res.status(500).send('Error')
+            } else res.status(500).send(err)
 
         }} else {
             res.status(400).send('Invalid input')
