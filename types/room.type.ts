@@ -1,4 +1,5 @@
 export type TRoom = {
-    room_id: string
+    room: string
     room_name: string,
+    is_private: boolean,
 }

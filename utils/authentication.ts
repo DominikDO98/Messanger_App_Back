@@ -8,7 +8,7 @@ export const generateToken = (user: TUserJWT) => {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
 }
 
-export const autorizeToken = (req: Request, res: Response, next: NextFunction) => {
+export const authorizeToken = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization']
     
     const token = authHeader ? authHeader : null
