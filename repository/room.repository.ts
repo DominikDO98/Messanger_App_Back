@@ -10,8 +10,8 @@ export class roomRepo {
 
 
     static async getAllGroupChats (user_id: string): Promise<TRoom[] | null> {
-        const [results] = await pool.execute('SELECT `room`, `room_name`, `is_private` FROM `room_users` LEFT JOIN `room` ON `room` = `room_id` WHERE `user_id` = :user_id AND `is_private` = 0 ' , {
-            user_id: user_id
+        const [results] = await pool.execute('SELECT `room`, `room_name`, `is_private` FROM `room_users` LEFT JOIN `room` ON `room` = `room_id` WHERE `user` = :user AND `is_private` = 0 ' , {
+            user: user_id
         }) as RoomResults
        
 
@@ -22,11 +22,11 @@ export class roomRepo {
     };
 
     static async getAllPrivateRooms (user_id: string): Promise<TUserJWT[] | null> {
-        const [friends] = await pool.execute('SELECT `user_id`, `username`FROM `users` WHERE `user_id` IN (SELECT `user_id` FROM `room_users` WHERE `room` IN (SELECT `room` FROM `room_users` LEFT JOIN `room` ON `room` = `room_id` WHERE `user_id` = :user_id AND `is_private` = 1) AND NOT `user_id` = :user_id)', {
-            user_id: user_id
+        const [results] = await pool.execute('SELECT `user_id`, `username`, `room` FROM `users` LEFT JOIN `room_users` ON `user_id` = `user` WHERE `user_id` IN (SELECT `user` FROM `room_users` WHERE `room` IN (SELECT `room` FROM `room_users` LEFT JOIN `room` ON `room` = `room_id` WHERE `user` = :user AND `is_private` = 1) AND NOT `user` = :user)', {
+            user: user_id
         }) as UserResults
 
-        return friends
+        return results
     }
 
     static async getRoom (room_id: string): Promise<string[] | null> {
