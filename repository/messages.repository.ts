@@ -1,5 +1,9 @@
+import { FieldPacket } from "mysql2";
 import { TMessage } from "../types/messege.type";
 import { pool } from "../utils/db";
+
+type LoadMessageResult = [TMessage[], FieldPacket[]]
+type SaveMessageResult = [string[], FieldPacket[]]
 
 export class MessegesRepository {
     constructor () {}
@@ -7,12 +11,12 @@ export class MessegesRepository {
     
 
     static async loadMessages (room_id: string): Promise<Partial<TMessage[]> | null> {
-        const [ results ] = await pool.execute('SELECT `message_text`, `created_at`, `message_id`, `from_user_id` FROM `messages` WHERE `to_room_id` = :room_id ORDER BY `created_at` ASC LIMIT 50', {
+        const [ results ] = await pool.execute('SELECT `message_text`, `created_at`, `message_id`, `from_user_id` FROM `messages` WHERE `to_room_id` = :room_id ORDER BY `created_at` ASC', {
             room_id: room_id,
-        });
+        }) as LoadMessageResult
 
         
-        return results[0]
+        return results
         
     }
     static async sendMessage (message: Omit<TMessage, 'created_at'>): Promise<string> {
