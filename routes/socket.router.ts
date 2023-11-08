@@ -5,7 +5,7 @@ import { Request, Response, Router } from "express";
 import { MessegesRepository } from "../repository/messages.repository";
 
 export const socket = app.get('/ws/:room_id', authorizeToken, (req, res) => {
-    res.json();
+    res.json('Działa')
 })
 
 export const socketRouter = Router()

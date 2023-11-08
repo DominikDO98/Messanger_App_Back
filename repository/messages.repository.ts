@@ -1,5 +1,5 @@
 import { FieldPacket } from "mysql2";
-import { TMessage } from "../types/messege.type";
+import { TMessage, TMessageCreation } from "../types/messege.type";
 import { pool } from "../utils/db";
 
 type LoadMessageResult = [TMessage[], FieldPacket[]]
@@ -15,6 +15,7 @@ export class MessegesRepository {
             room_id: room_id,
         }) as LoadMessageResult
 
+        console.log(results);
         
         return results
         

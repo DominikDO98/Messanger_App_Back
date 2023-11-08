@@ -22,7 +22,7 @@ export class roomRepo {
     };
 
     static async getAllPrivateRooms (user_id: string): Promise<TUserJWT[] | null> {
-        const [results] = await pool.execute('WITH chats AS (SELECT `user_id`, `username`, `room`, `message_text`, `created_at`, ROW_NUMBER() OVER(PARTITION BY `room` ORDER BY `created_at` DESC) AS `row_number` FROM `users` LEFT JOIN `room_users` ON `user_id` = `user`  LEFT JOIN `messages` ON `room` = `to_room_id` WHERE `user_id` IN (SELECT `user` FROM `room_users` WHERE `room` IN (SELECT `room` FROM `room_users` LEFT JOIN `room` ON `room` = `room_id` WHERE `user` = :user AND `is_private` = 1) AND NOT `user` = :user)) SELECT  `user_id`, `username`, `room`, `message_text`, `created_at` FROM chats WHERE row_number = 1', {
+        const [results] = await pool.execute('WITH chats AS (SELECT `user_id`, `username`, `room`, `message_text`, `created_at`, ROW_NUMBER() OVER(PARTITION BY `room` ORDER BY `created_at` DESC) AS `row_number` FROM `users` LEFT JOIN `room_users` ON `user_id` = `user`  LEFT JOIN `messages` ON `room` = `to_room_id` WHERE `user_id` IN (SELECT `user` FROM `room_users` WHERE `room` IN (SELECT `room` FROM `room_users` LEFT JOIN `room` ON `room` = `room_id` WHERE `user` = :user AND `is_private` = 1) AND NOT `user` = :user) AND `room` IN (SELECT `room` FROM `room_users` LEFT JOIN `room` ON `room` = `room_id` WHERE `user` = :user AND `is_private` = 1)) SELECT  `user_id`, `username`, `room`, `message_text`, `created_at` FROM chats WHERE row_number = 1', {
             user: user_id
         }) as UserResults
 
