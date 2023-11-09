@@ -1,2 +1,4 @@
 # Messanger_App_Back
-JS Application that's allows to send messages between users via websocekt connection 
+
+<h3>About the project</h3>
+JS Application that's it's users allows to send messages between each other via websocekt connection.
