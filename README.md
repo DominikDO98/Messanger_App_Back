@@ -19,3 +19,5 @@ Application implements Login and Registration functionalities with hashed passwo
 
 <h3>...and what wasn't</h3>
 Unfortunetly, as of right now, application is in unpolished state. Things which was planned, but due to lack of time wasn't implemanted or require more work:  better error handling and validation hanlding, creating handle-error middleware, tests, better user-expiriance, and deployment on the server
+
+Frontend: https://github.com/DominikDO98/Messanger_App_Front
