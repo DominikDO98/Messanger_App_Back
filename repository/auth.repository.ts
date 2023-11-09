@@ -4,9 +4,11 @@ import { pool } from "../utils/db"
 
 export class AuthRepository {
     constructor () {}
-    static async getUser (user_id: string) {
-        const [ results ] = await pool.execute('SELECT `username` FROM `users` WHERE `user_id` = :user_id', {
-            user_id: user_id
+    static async getUser (username: string) {
+        console.log(username);
+        
+        const [ results ] = await pool.execute('SELECT `user_id` FROM `users` WHERE `username` = :username', {
+            username: username
         })
 
         return results[0]
