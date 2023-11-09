@@ -12,3 +12,10 @@ The point of the project was to practice web-application develoment with kown to
 <li>WebSocket</li>
 <li>JWT</li>
 <li>MariaDB</li>
+
+<h3>What was acomplished...</h3>
+Procject acomplished creating fully working, resonsive chat application.
+Application implements Login and Registration functionalities with hashed passwords being stored in database, authorization middleware protecting backend routes, basic error-handling, websockets connection established between frontend, backend and diffrent users. Users can create group chats or private rooms between each other. All users converstions are loaded from database upon login and choosing type of the chats (private or group). All chat messages are stored in DB and send to user when they select chat-room from inbox.
+
+<h3>...and what not</h3>
+Unfortunetly, as of right now, application is in unpolished state. Things which was planned, but due to lack of time wasn't implemanted or require more work:  better error handling and validation hanlding, creating handle-error middleware, tests, better user-expiriance. 
