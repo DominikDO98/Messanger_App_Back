@@ -6,7 +6,9 @@ The point of the project was to practice web-application develoment with kown to
 
 <h3>Tech Stack:</h3>
 
-<li>
-  
-</li>
-
+<li>React.js</li>
+<li>Express.js</li>
+<li>Typescript</li>
+<li>WebSocket</li>
+<li>JWT</li>
+<li>MariaDB</li>
