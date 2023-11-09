@@ -1,8 +1,8 @@
 # Messanger_App_Back
-<a href='#General-Info'>General Info</a>
-<a href='#Tech-Stack'>Tech Stack</a>
-<a href='#What was acomplished...'>What was acomplished...</a>
-<a href='#and-what-wasnt'>...and what wasn't</a>
+<li><a href='#General-Info'>General Info</a></li>
+<li><a href='#Tech-Stack'>Tech Stack</a></li>
+<li><a href='#What was acomplished...'>What was acomplished...</a></li>
+<li><a href='#and-what-wasnt'>...and what wasn't</a></li>
 
 ![Bez tytułu](https://github.com/DominikDO98/Messanger_App_Back/assets/123335551/f9f0d7e9-11b8-45fd-b163-f8da005b417e)
 ![Bez tytułu2](https://github.com/DominikDO98/Messanger_App_Back/assets/123335551/784678dd-88b5-4034-83ed-29ce4183de88)
